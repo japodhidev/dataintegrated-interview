@@ -65,7 +65,8 @@ docker run -p 3000:3000 di-docker
 Alternatively, pull the docker image
 
 ```sh
-docker run -p 3000:3000 japodhidev/di-docker:latest
+docker pull japodhidev/di-docker
+docker run -p 3000:3000 japodhidev/di-docker
 ```
 
 The project should be available at `http://localhost:3000`, assuming that the port is available for use.
