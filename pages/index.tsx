@@ -1,6 +1,8 @@
 import Head from 'next/head'
-import Image from 'next/image'
+// import Image from 'next/image'
 import { Inter } from '@next/font/google'
+import Link from 'next/link'
+import React from "react";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,10 +15,16 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
-         <h1 className="text-3xl font-bold underline">
-            Hello world!
-          </h1>
+      <main className="w-3/4 h-screen mx-auto flex flex-col">
+         <div className="h-2/4 my-auto flex flex-col gap-[4rem] place-items-center">
+             <div className="py-4 px-8 rounded-md bg-slate-100">
+                 <h1 className="text-4xl text-gray-600 font-bold mb-4">
+                     Data Integrated Interview Test Answers
+                 </h1>
+                 <p className="text-xl text-gray-500 font-medium">Answers to an interview test posed by Data Integrated.</p>
+             </div>
+             <Link href="/dashboard" className="py-3 px-6 bg-blue-400 text-lg font-medium text-white rounded-lg">Dashboard</Link>
+         </div>
       </main>
     </>
   )

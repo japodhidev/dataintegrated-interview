@@ -1,5 +1,11 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
+import * as jose from 'jose'
+
+const secret = new TextEncoder().encode(
+  'cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2',
+)
+const alg = 'HS256'
 
 export const authOptions = {
 	secret: '3002f1c42167459001140ec6389b',
@@ -11,7 +17,9 @@ export const authOptions = {
 				password: { label: "Password", type: "password" }
 			},
 			async authorize(credentials, req) {
-				const user =  { id: "546473", email: credentials.email }
+				const token = await generateJWT(credentials.email)
+				console.log(token)
+				const user =  { id: "546473", name: credentials.email.split('@')[0], email: credentials.email, token: token }
 
 				if (user) {
 					return user
@@ -35,6 +43,16 @@ export const authOptions = {
 			return session
 		}
 	}
+}
+
+async function generateJWT (audience ='') {
+	return await new jose.SignJWT({'urn:example:claim': true})
+		.setProtectedHeader({alg})
+		.setIssuedAt()
+		.setIssuer('japodhidev@gmail.com')
+		.setAudience(audience)
+		.setExpirationTime('2h')
+		.sign(secret)
 }
 
 export default NextAuth(authOptions)
