@@ -1,7 +1,7 @@
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "./auth/[...nextauth]"
 import type { NextApiRequest, NextApiResponse } from 'next'
-import {apply_patch} from "jsonpatch"
+import { apply_patch } from "jsonpatch"
 import { isEqual, keysIn } from 'lodash-es'
 
 type Data = {
@@ -21,18 +21,19 @@ export default async function handler(
         { id: 2, value: "Read a book", status: false },
     ]
 
-    const patchTodos = (id: number, newValue: String) => {
-        const item = todos.find(el => el.id === id)
-        let patch = [
-            { "op": "replace", "path": `/value`, "value": newValue }
-        ]
+    const patchTodos = (id: number, newValue: String, patch: String) => {
+      const tempTodos = todos
+        const item = tempTodos.find(el => el.id === id)
+        let patchArr = [JSON.parse(patch)]
 
-        let patchedObject = apply_patch(item, patch)
-        const idx = todos.findIndex(e => e.id === id)
+        console.log(patch)
+
+        let patchedObject = apply_patch(item, patchArr)
+        const idx = tempTodos.findIndex(e => e.id === id)
         // @ts-ignore
-        todos[idx] = patchedObject
+        tempTodos[idx] = patchedObject
 
-        return todos
+        return tempTodos
     };
 
     // Reject post requests without the authorization header
@@ -49,14 +50,15 @@ export default async function handler(
       }
       // Simple validation using lodash
         const keys = keysIn(body)
-      if (!isEqual(keys, ['id', 'value'])) {
+        console.log(keys)
+      if (!isEqual(keys, ['id', 'newValue', "newPatch"])) {
           // @ts-ignore
           res.status(412).json({"error": "Invalid arguments supplied."})
       }
       
-      const data = patchTodos(body.id, body.newValue)
+      const data = patchTodos(body.id, body.newValue, body.newPatch)
         // @ts-ignore
-      res.status(200).json({data})
+      res.status(200).json({"todos": data})
     } else if (req.method === 'GET') {
       // @ts-ignore
         res.status(200).json({todos})

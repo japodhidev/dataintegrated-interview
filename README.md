@@ -1,12 +1,51 @@
 # Data Integrated Interview Test Answer
 
+The project is built using [Next.js](https://nextjs.org/). It's an attempt at providing an answer to a set os interview questions posed by [Data Integrated](https://dataintegrated.co.ke/)
+
+The project's purpose is to demonstrate the usage of the [JSON Patch](https://jsonpatch.com/) specification.
+Only the `replace` operation is demonstrated in this project.
+
+A user interface exists at the `/dashboard` route.
+Authorization is required to access the `/dashboard` URL.
+
 ## Getting Started
 
-First, run the development server:
+Setup should be relatively straight-forward.
+
+## Setup
+
+Install dependencies
 
 ```bash
 npm run dev
 ```
+
+Run the development server
+
+```bash
+npm run dev
+```
+
+Start the server
+
+```bash
+npm run start
+```
+
+Run the linting script
+
+```bash
+npm run lint
+```
+
+Build and run the docker image
+
+```sh
+docker build -t di-docker .
+docker run -p 3000:3000 di-docker
+```
+
+The project should be available at `http://localhost:3000`
 
 ## Deploy on Vercel
 
