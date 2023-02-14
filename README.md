@@ -19,6 +19,8 @@ A public `Docker` image is available [here](https://hub.docker.com/r/japodhidev/
 Tests are ran using [Cypress](https://cypress.io/). This seemed like the proper way since it's recommended by [Nextjs](https://nextjs.org/docs/testing).
 Only `e2e` tests are available given the limitations that component tests face.
 
+Coverage reports are available in the `coverage` directory. The reports are generated for the files that are tested using [Cypress](https://cypress.io/). The reports are generated using [nyc](https://github.com/istanbuljs/nyc). A simple configuration file, `nyc.config.js` is also available.
+
 ## Getting Started
 
 Setup should be relatively straight-forward.
@@ -53,6 +55,11 @@ Run tests
 
 ```bash
 npm run cypress
+```
+
+Generate coverage reports
+```sh
+npm run coverage
 ```
 
 Build and run the docker image
