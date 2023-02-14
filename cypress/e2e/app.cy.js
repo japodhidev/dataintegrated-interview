@@ -12,3 +12,5 @@ describe('Navigation', function () {
         cy.get('h3').contains('You are not signed in')
     });
 });
+
+export {}
