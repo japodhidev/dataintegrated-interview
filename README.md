@@ -6,7 +6,7 @@ The project's purpose is to demonstrate the usage of the [JSON Patch](https://js
 Only the `replace` operation is demonstrated in this project.
 
 A user interface exists at the `/dashboard` route.
-Authorization is required to access the `/dashboard` URL.
+Authorization is however required to access the `/dashboard` route. An endpoint, `/api/data` is responsible for sending and receiving data.
 
 ## Getting Started
 

@@ -21,7 +21,7 @@ export default async function handler(
         { id: 2, value: "Read a book", status: false },
     ]
 
-    const patchTodos = (id: number, newValue: String, patch: String) => {
+    const patchTodos = (id: number, patch: string) => {
       const tempTodos = todos
         const item = tempTodos.find(el => el.id === id)
         let patchArr = [JSON.parse(patch)]
@@ -49,14 +49,13 @@ export default async function handler(
         res.status(412).json({"error": "Bad request."})
       }
       // Simple validation using lodash
-        const keys = keysIn(body)
-        console.log(keys)
-      if (!isEqual(keys, ['id', 'newValue', "newPatch"])) {
+      const keys = keysIn(body)
+      if (!isEqual(keys, ['id', 'newPatch'])) {
           // @ts-ignore
           res.status(412).json({"error": "Invalid arguments supplied."})
       }
       
-      const data = patchTodos(body.id, body.newValue, body.newPatch)
+      const data = patchTodos(body.id, body.newPatch)
         // @ts-ignore
       res.status(200).json({"todos": data})
     } else if (req.method === 'GET') {

@@ -14,14 +14,16 @@ export default function Dashboard() {
     const [newPatch, setPatch] = useState('')
 
     const fetchTodos = () => {
-        axios.get('/api/data').then(response => setTodos(response.data.todos)).catch(error => console.log(error.message))
+        if(session) {
+            axios.get('/api/data').then(response => setTodos(response.data.todos)).catch(error => console.log(error.message))
+        }
     }
 
     function patchTodos(id: number) {
         if (session) {
             // @ts-ignore
             let token = session["accessToken"] ? session["accessToken"] : ''
-            axios.post('/api/data', {id, newValue, newPatch}, {
+            axios.post('/api/data', {id, newPatch}, {
                 headers: {Authorization: `Bearer ${token}`}
             })
             .then((response) => {
@@ -30,7 +32,7 @@ export default function Dashboard() {
         }
     }
 
-    function patchValue(event) {
+    function patchValue(event: React.ChangeEvent<HTMLInputElement>) {
         setNewValue(event.target.value)
         setPatch(JSON.stringify({ "op": "replace", "path": `/value`, "value": event.target.value }))
     }
@@ -48,7 +50,7 @@ export default function Dashboard() {
                     <meta name="viewport" content="width=device-width, initial-scale=1"/>
                     <link rel="icon" href="/favicon.ico"/>
                 </Head>
-                <main>
+                <main className={inter.className}>
                     <div className="w-3/4 mx-auto flex flex-col place-items-center">
                         <div className="my-12">
                             <h1 className="text-4xl font-bold text-gray-700">
@@ -69,8 +71,8 @@ export default function Dashboard() {
                                         <span className="prose">
                                             <code>{JSON.stringify(t)}</code>
                                         </span>
-                                        <input onChange={e => patchValue(e, t["id"])} className="mt-2 p-2 rounded-md inset-1 bg-gray-200 ring-0 active:ring-white"/>
-                                        <button onClick={() => patchTodos(t["id"], newPatch)} className="w-1/4 py-3 px-6 bg-blue-400 text-white rounded-md">Apply patch</button>
+                                        <input onChange={e => patchValue(e)} className="mt-2 p-2 rounded-md inset-1 bg-gray-200 ring-0 active:ring-white"/>
+                                        <button onClick={() => patchTodos(t["id"])} className="w-1/4 py-3 px-6 bg-blue-400 text-white rounded-md">Apply patch</button>
                                     </li>
                                 ))}
                             </ul>
