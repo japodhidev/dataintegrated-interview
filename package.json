@@ -18,6 +18,7 @@
     "eslint-config-next": "13.1.6",
     "expect.js": "^0.3.1",
     "jsonpatch": "^3.1.0",
+    "lodash-es": "^4.17.21",
     "mocha": "^10.2.0",
     "next": "13.1.6",
     "next-auth": "^4.19.2",
@@ -27,6 +28,7 @@
     "typescript": "4.9.5"
   },
   "devDependencies": {
+    "@types/lodash-es": "^4.17.6",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.6"

@@ -19,19 +19,6 @@ export default function Dashboard() {
     }
 
     function patchTodos(id: number) {
-        // const tempTodos = todos
-        // const item = tempTodos.find(el => el.id === id)
-        // // item.value = newValue
-        // // console.log(item)
-        // let patch = [
-        //     { "op": "replace", "path": `/value`, "value": newValue }
-        // ]
-
-        // let patchedObject = apply_patch(item, patch)
-        // const idx = todos.findIndex(e => e.id === id)
-        // todos[idx] = patchedObject
-        // // // @ts-ignore
-        // setTodos(tempTodos)
         if (session) {
             // @ts-ignore
             axios.post('/api/data', {id, newValue}, {

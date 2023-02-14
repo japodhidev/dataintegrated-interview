@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "./auth/[...nextauth]"
 import type { NextApiRequest, NextApiResponse } from 'next'
 import {apply_patch} from "jsonpatch"
+import { isEqual, keysIn } from 'lodash-es'
 
 type Data = {
   email: string
@@ -34,17 +35,28 @@ export default async function handler(
         return todos
     };
 
+    // Reject post requests without the authorization header
     if (req.method === 'POST') {
+        const headers = req.headers
+        if (!headers.authorization) {
+            // @ts-ignore
+            res.status(401).json({"error": "Unauthorized."})
+        }
       const body = req.body
       if (!body) {
           // @ts-ignore
         res.status(412).json({"error": "Bad request."})
       }
-      console.log(body)
+      // Simple validation using lodash
+        const keys = keysIn(body)
+      if (!isEqual(keys, ['id', 'value'])) {
+          // @ts-ignore
+          res.status(412).json({"error": "Invalid arguments supplied."})
+      }
       
       const data = patchTodos(body.id, body.newValue)
         // @ts-ignore
-      res.status(200).json({todos})
+      res.status(200).json({data})
     } else if (req.method === 'GET') {
       // @ts-ignore
         res.status(200).json({todos})
@@ -55,7 +67,7 @@ export default async function handler(
 
   } else {
       // @ts-ignore
-      res.status(403).json({"error": "Unauthorized."})
+      res.status(403).json({"error": "Forbidden."})
   }
 
 }
