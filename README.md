@@ -14,7 +14,7 @@ As per the interview requirements, accessing this endpoint requires that the `Au
 The header should also include a valid bearer token i.e `Authorization: Bearer token`. Relevant responses will be returned
 in the event of an absence of a token or presence of an invalid token. Also, only `GET` & `POST` HTTP methods are currently supported.
 
-A public `Docker` image is available [here](https://hub.docker.com/repository/docker/japodhidev/di-docker).
+A public `Docker` image is available [here](https://hub.docker.com/r/japodhidev/di-docker).
 
 Tests are ran using [Cypress](https://cypress.io/). This seemed like the proper way since it's recommended by [Nextjs](https://nextjs.org/docs/testing).
 Only `e2e` tests are available given the limitations that component tests face.
