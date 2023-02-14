@@ -1,12 +1,23 @@
 # Data Integrated Interview Test Answer
 
-The project is built using [Next.js](https://nextjs.org/). It's an attempt at providing an answer to a set os interview questions posed by [Data Integrated](https://dataintegrated.co.ke/)
+The project is built using [Next.js](https://nextjs.org/).
+It's an attempt at providing an answer to a set of interview questions posed by [Data Integrated](https://dataintegrated.co.ke/)
 
 The project's purpose is to demonstrate the usage of the [JSON Patch](https://jsonpatch.com/) specification.
 Only the `replace` operation is demonstrated in this project.
 
-A user interface exists at the `/dashboard` route.
-Authorization is however required to access the `/dashboard` route. An endpoint, `/api/data` is responsible for sending and receiving data.
+A user interface exists at the `/dashboard` route. This page is the heart of the project.
+Authorization is however required to access the `/dashboard` route. Use any valid email address and password to login.
+
+An endpoint, `/api/data` is responsible for sending and receiving data.
+As per the interview requirements, accessing this endpoint requires that the `Authorization` `HTTP` header is present.
+The header should also include a valid bearer token i.e `Authorization: Bearer token`. Relevant responses will be returned
+in the event of an absence of a token or presence of an invalid token. Also, only `GET` & `POST` HTTP methods are currently supported.
+
+A public `Docker` image is available [here](https://hub.docker.com/repository/docker/japodhidev/di-docker).
+
+Tests are run using [Cypress](https://cypress.io/). This seemed like the proper way since it's recommended by [Nextjs](https://nextjs.org/docs/testing).
+Only `e2e` tests are available given the limitations that component tests face.
 
 ## Getting Started
 
@@ -38,6 +49,12 @@ Run the linting script
 npm run lint
 ```
 
+Run tests
+
+```bash
+npm run cypress
+```
+
 Build and run the docker image
 
 ```sh
@@ -45,7 +62,13 @@ docker build -t di-docker .
 docker run -p 3000:3000 di-docker
 ```
 
-The project should be available at `http://localhost:3000`
+Alternatively, pull the docker image
+
+```sh
+docker run -p 3000:3000 japodhidev/di-docker:latest
+```
+
+The project should be available at `http://localhost:3000`, assuming that the port is available for use.
 
 ## Deploy on Vercel
 
